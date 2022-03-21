@@ -1,0 +1,139 @@
+{% extends 'basePdM.html' %}
+{% block title %}
+Dashboard
+{% endblock title %}
+{% block body %}
+<div class="float-container2">
+    <h1 class="dashboardFont">D A S H B O A R D</h1>
+    
+    
+    <div class="input-group SearchBar">
+        <span class="input-group-text sb1" id="basic-addon1">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search"
+                viewBox="0 0 16 16">
+                <path
+                    d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z">
+                </path>
+            </svg>
+        </span> 
+        <input type="search" class="form-control sb2" id="myInput" placeholder="Search..." aria-label="Search"
+            aria-describedby="basic-addon1" onkeyup="searchFun()">
+    </div>
+
+
+
+    <div class="container mt-5 buttondiv ">
+        <button type="button" class="btn btn-outline-secondary buttonAdd" data-bs-toggle="modal"
+            data-bs-target="#myModal">ADD</button>
+        <div class="modal" id="myModal">
+            <div class="modal-dialog">
+                <div class="modal-content popup">
+                    <div class="modal-header">
+                        <h5 class="modal-title" style="color:black">CUSTOMER DETAILS</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form action="/dashboard" method="POST">
+                            <div class="mb-3">
+                                <input type="text" required="required" class="form-control" name="name" id="name"
+                                    aria-describedby="emailHelp" placeholder="Name">
+                            </div>
+                            <div class="mb-3">
+                                <input type="text" required="required" class="form-control" name="address" id="address"
+                                    aria-describedby="emailHelp" placeholder="Location">
+                            </div>
+                            <div class=" mb-3">
+                                <input type="text" class="form-control" required="required" name="phno" id="phno"
+                                    placeholder="Phone No.">
+                            </div>
+                            <div class="mb-3">
+                                <input type="text" class="form-control" required="required" name="pId" id="pId"
+                                    placeholder="Pump Id">
+                            </div>
+                            <button type="submit" class="btn btn-primary" style="left: 50px">SAVE</button>
+
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
+        crossorigin="anonymous"></script>
+
+    <div class="container my-3 width=100%">
+        {% if allCustomer|length==0 %}
+        <div class="alert alert-dark" role="alert">
+            No Customer found!
+        </div>
+        {% else %}
+        {% for customer in allCustomer %}
+        <div class="mainDiv">
+            <div>
+                <table class="content" id="mainTable">
+                    <tbody>
+                        <td class="td">
+
+                            <!--<h4>Customer number: {{loop.index}}</h4>-->
+                            <h5> <b>{{customer.name}}</b></h5>
+                            <h6> Address: <p>{{customer.address}}</p>
+                            </h6>
+                            <h6> Contact No: {{customer.phno}}</h6>
+                            <h6> Water Pump ID: {{customer.pId}}</h6>
+                        </td>
+                        <td class="td2">
+                            <a href="/delete/{{customer.sno}}" type="button"
+                                class="btn btn-outline-dark dtlbtn">Delete</button>
+                            <a href="/update/{{customer.sno}}" type="button"
+                                    class="btn btn-outline-dark updtbtn">Update</button>
+                            <a href="/addpump/{{customer.sno}}" type="button"
+                                    class="btn btn-outline-dark adpump">Add Pump</button>
+
+                            <a href="/pumps/{{customer.sno}}" class=" btn btn-outline-primary pumpbtn" role="button"
+                                        aria-pressed="true"> Show Pump Data</a>
+                        </td>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        {% endfor %}
+
+        {% endif %}
+    </div>
+
+</div>
+
+<script>
+    const searchFun = () =>{
+        let filter = document.getElementById('myInput').value.toUpperCase();
+        let mainTable = document.getElementById('mainTable');
+        let td = mainTable.getElementsByTagName('td');
+
+        for(var i=0;i<td.length;i++){
+            let tbody =td[i].getElementsByTagName('tbody')[0];
+
+            if(tbody){
+                let textvalue=tbody.textContent||tbody.innerHTML;
+
+                if(textvalue.toUpperCase().indexOf(filter)>-1){
+                    td[i].style.display="";
+                }else{
+                    td[i].style.display="Invalid Search..."
+                }
+            }
+        }
+
+    }
+</script>
+
+<!-- Optional JavaScript; choose one of the two! -->
+<!-- Option 1: Bootstrap Bundle with Popper -->
+
+<!-- Option 2: Separate Popper and Bootstrap JS -->
+<!--
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
+    -->
+{% endblock body %}

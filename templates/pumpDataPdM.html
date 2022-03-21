@@ -1,0 +1,189 @@
+{% extends 'basePdM.html' %}
+{% block title %}
+Pump Details
+{% endblock title %}
+{% block body %}
+<div>
+  <div class="division">
+    <div class="name"></div><span class="v129_413">CUSTOMER'S PUMP LIVE DATA</span>
+
+    <span class="v133_415">NAME: {{allCustomer.name}}
+      WATERPUMP ID: {{allCustomer.pId}}</span>
+
+  </div>
+
+  <div class="chartdiv">
+    <canvas class="chartcanvas" id="myChart"></canvas>
+
+    <script>
+      window.onload = function () {
+        console.log("Function loaded")
+
+        var updateInterval = 2000; //ms 
+        var updateElements = 20; // for shifting points
+
+        //Globals
+
+        var updateCount = 0;
+
+        //Chart objects
+        // var temperature = document.getElementById('temperatureChart').getContext("2d");
+        // var voltage = document.getElementById('voltageChart').getContext("2d");
+        // var vibration = document.getElementById('vibrationChart').getContext("2d");
+        // var accoustic = document.getElementById('accousticChart').getContext("2d");
+
+        var commonOptions = {
+          scales: {
+            xAxes: [{
+              type: 'time',
+              time: {
+                displayElements: {
+                  millisecond: "mm:ss"
+                }
+              }
+            }],
+            yAxes: [{
+              ticks: {
+                beginAtZero: true
+              }
+            }]
+          },
+          legends: { display: true },
+          tooltips: { enabled: false }
+        };
+
+        const ctx = document.getElementById('myChart').getContext('2d');
+        const myChart = new Chart(ctx, {
+          type: 'line',
+
+          data: {
+            //labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+
+            datasets: [{
+              
+              label: 'Temperature',
+              data: 0,
+              backgroundColor:
+                'rgba(255, 99, 132, 0.2)',
+              borderColor:
+                'rgba(255, 159, 64, 1)',
+              borderWidth: 1,
+              lineTension: 0.3,
+              fill: true
+            },
+            {
+              label: 'Voltage',
+              data: 0,
+              backgroundColor:
+                'rgba(255, 99, 132, 0.2)',
+
+              borderColor: 'rgba(153, 102, 255, 1)',
+              borderWidth: 1,
+              lineTension: 0.3,
+              fill: true
+            },
+            {
+              label: 'Current',
+              data: 0,
+              backgroundColor:
+                'rgba(255, 159, 64, 0.2)',
+              borderColor:
+                'rgba(255, 99, 132, 1)',
+              borderWidth: 1,
+              lineTension: 0.3,
+              fill: true
+            },
+            {
+              label: 'Vibration',
+              data: 0,
+              backgroundColor:
+                'rgba(255, 99, 132, 0.2)',
+
+              borderColor:
+              'rgba(64,224,208)',
+              borderWidth: 1,
+              lineTension: 0.3,
+              fill: true
+            }
+            ]
+          },
+          options: Object.assign({}, commonOptions,{
+                title:{
+                    display:true,
+                    text: "temperature",
+                    fontsize: 20
+                }
+            })
+        });
+
+
+        function addData(data) {
+          if (data) {
+            console.log(data['0']);
+            myChart.data.labels.push(new Date().toLocaleString('en-US', { hour12: false }))
+            myChart.data.datasets[0].data.push(data['0']);
+
+            myChart.data.datasets[1].data.push(data['1']);
+
+            myChart.data.datasets[2].data.push(data['2']);
+
+            myChart.data.datasets[3].data.push(data['3']);
+
+            // voci.data.labels.push(new Date().toLocaleString('en-US', { hour12: false })),
+            //   voci.data.datasets.forEach((dataset) => { dataset.data.push(data['1']) });
+            // vici.data.labels.push(new Date().toLocaleString('en-US', { hour12: false })),
+            //   vici.data.datasets.forEach((dataset) => { dataset.data.push(data['2']) });
+            // aci.data.labels.push(new Date().toLocaleString('en-US', { hour12: false })),
+            //   aci.data.datasets.forEach((dataset) => { dataset.data.push(data['3']) });
+            if (updateCount > updateElements) {
+              myChart.data.labels.shift();
+              myChart.data.datasets[0].data.shift();
+              myChart.data.datasets[1].data.shift();
+              myChart.data.datasets[2].data.shift();
+              myChart.data.datasets[3].data.shift();
+              // voci.data.labels.shift();
+              // voci.data.datasets[0].data.shift();
+              // vici.data.labels.shift();
+              // vici.data.datasets[0].data.shift();
+              // aci.data.labels.shift();
+              // aci.data.datasets[0].data.shift();
+            }
+            else { updateCount++; }
+
+            myChart.update();
+            // voci.update();
+            // vici.update();
+            // aci.update();
+          }
+        }
+
+        // var cnt=0;
+        // setInterval(function(){
+        //   Plotly.extendTraces('myChart',{y:[[addData()]]},[0]);
+        //   cnt++;
+        //   if(cnt>10){
+        //     Plotly.relayout('myChart',{
+        //       xaxis:{
+        //         range:[cnt-10,cnt]
+        //       }
+        //     });
+        //   }
+        // },15);
+
+        function updateData() {
+          console.log("Inside Update Function");
+          $.getJSON("/pumpData", addData);
+          setTimeout(updateData, updateInterval);
+
+        }
+        updateData();
+      }
+    </script>
+
+  </div>
+</div>
+
+
+
+
+{% endblock body %}

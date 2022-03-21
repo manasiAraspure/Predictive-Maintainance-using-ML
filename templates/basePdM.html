@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous"> 
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+
+  <link href="https://fonts.googleapis.com/css?family=Barlow&display=swap" rel="stylesheet" />
+
+ <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"
+    integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB"
+    crossorigin="anonymous"></script> 
+   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"
+    integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13"
+    crossorigin="anonymous"></script> 
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js"
+    integrity="sha512-TW5s0IT/IppJtu76UbysrBH9Hy/5X41OTAbQuffZFU6lQ1rdcLHzpU5BzVvr/YFykoiMYZVWlr/PX1mDcfM9Qg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+   <script src='https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js'></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
+    integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+
+  <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js"
+    integrity="sha512-TW5s0IT/IppJtu76UbysrBH9Hy/5X41OTAbQuffZFU6lQ1rdcLHzpU5BzVvr/YFykoiMYZVWlr/PX1mDcfM9Qg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
+    integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+    integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+    crossorigin="anonymous"></script> -->
+
+  <title> {% block title %}
+
+    {% endblock title %} Predictive Maintanance</title>
+</head>
+
+<body>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container d-flex justify-content-around ">
+
+      <div class=" collapse navbar-collapse d-flex justify-content-around" id="navbarNavAltMarkup"
+        style="border-bottom: 2px white">
+        <div class="navbar-nav d-flex justify-content-around">
+          <a class="nav-link v101_33 " style="font-size:large; padding-right: 60%;" href="/">Home</a>
+          <a class="nav-link v101_33" style="font-size: large;" data-bs-toggle="collapse" href="#collapseAbout"
+            role="button" aria-expanded="false" aria-controls="collapseAbout">About</a>
+          <a class="nav-link v101_33" style="font-size: large; padding-left: 60%;" data-bs-toggle="collapse"
+            href="#collapseContacts" role="button" aria-expanded="false" aria-controls="collapseContacts">Contacts</a>
+        </div>
+      </div>
+  </nav>
+
+  <div class="collapse" id="collapseAbout">
+    <div class="card card-body navcontent">
+      <ul class="navcontentStyle">
+        <li>
+          <p>The Predictive Maintanance is based on the Machine Learning Algorithms. In this method, the sensors are
+            mounted onthe various machine and assets to monitor the machine conditions. The collected data is sent to
+            the Cloud where it is analysed and the predictions regarding Remaining Useful Life and the Time Frame of
+            machine failure is predicted.</p>
+        </li>
+        <li>
+          <p>The Project is being developed at Cognifront company. The Dataset regarding water pumps is being provided
+            by another company namely RS Control.</p>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="collapse" id="collapseContacts">
+    <div class="card card-body navcontent navcontentStyle">
+      <p>The Project is being developed at Cognifront company. The Dataset regarding water pumps is being provided by
+        another company namely RS Control.</p>
+    </div>
+  </div>
+  {% block body %}
+
+  {% endblock body %}
+</body>
+
+</html>
