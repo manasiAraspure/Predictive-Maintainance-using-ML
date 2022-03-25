@@ -12,16 +12,16 @@ Update
                 <!--<button type="button" class="btn-close" data-bs-dismiss="modal"></button>-->
             </div>
             <div class="modal-body">
-                <form action="/addpump/{{customer.sno}}" method="POST">
+                <form action="/addpump/{{name}}" method="POST">
 
                     <div class="mb-3">
                         <input type="text" class="form-control" required="required" name="pId" id="pId" placeholder="PumpId">
                     </div>
 
-                    <div class="mb-3">
+                    <!-- <div class="mb-3">
                         <input type="text" required="required" class="form-control" name="name" id="name"
                          aria-describedby="emailHelp" placeholder="Customer Name">
-                    </div>
+                    </div> -->
                     
                     
                     <button type="submit" class="btn btn-primary" style="left: 50px">SAVE</button>
